@@ -9,14 +9,25 @@ export default function Home() {
 
     const [view, setview] = useState('0')
     const [data, setdata] = useState('')
+    const [ministatement, setministatement] = useState('')
+
+    const { id } = useParams()
+
+
+    useEffect(() => {
+        const url = `http://localhost:8080/customer/${id}`;     // Get user data url
+        fetch(url).then(resp => resp.json())
+            .then(resp => setdata(resp))
+    }, [])
 
 
 
     useEffect(() => {
-        const url = '';     // Get user data url
+        const url = `http://localhost:8080/ministatement/${id}`;     // Get ministatement url
         fetch(url).then(resp => resp.json())
-            .then(resp => setdata(resp))
-    }, [])
+            .then(resp => setministatement(resp))
+    }, [])    
+
 
     return (
         <div>
@@ -32,7 +43,7 @@ export default function Home() {
 
             <div className="container d-flex justify-content-center" style={{ marginTop: "30px" }}>
                 {/* <div class="btn-group" role="group" aria-label="Basic mixed styles example"> */}
-                <button type="button" onClick={() => { setview('1') }} style={{ marginRight: "100px" }} className="btn btn-primary">View Balance</button>
+                <button type="button" onClick={() => { setview('1') }} style={{ marginRight: "100px", backgroundColor:"purple", color:"white" }} className="btn btn-success">View Balance</button>
                 <button type="button" onClick={() => { setview('2') }} className="btn btn-success" style={{ marginRight: "100px" }}>Mini Statement</button>
                 <button type="button" onClick={() => { setview('3') }} style={{ marginRight: "100px" }} className="btn btn-warning">Fund Transfer</button>
                 <button type="button" onClick={() => { setview('0') }} className="btn btn-danger">Clear</button>
@@ -41,10 +52,10 @@ export default function Home() {
 
             <div className="container">
                 {view === '1' && (
-                    <Balance userId={data.acid} />
+                    <Balance balance={data.bal} />
                 )}
                 {view === '2' && (
-                    <MiniStatement userId={data.userid} />
+                    <MiniStatement transactionDataArray={ministatement} />
                 )}
                 {view === '3' && (
                     <Transfer />
@@ -58,3 +69,4 @@ export default function Home() {
         </div>
     )
 }
+

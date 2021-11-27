@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
+import { useParams } from 'react-router'
 
 export default function Balance(props) {
 
-    // userid = props.
 
     const [data, setdata] = useState('')
 
-    useEffect(()=>{
-        const url = '';     // Get balance url
-        fetch(url).then(resp=>resp.json())
-        .then(resp=>setdata(resp))
-    },[])  
+    // useEffect(()=>{
+    //     const url = `http://localhost:8080/`;     // Get balance url
+    //     fetch(url).then(resp=>resp.json())
+    //     .then(resp=>setdata(resp))
+    // },[])  
 
     // Get indivisual data-> data.map(e=>console.log(e.balance))
 
@@ -19,7 +19,7 @@ export default function Balance(props) {
     return (
         <div className="App">
             <div style={{ marginTop: "30px" }}>
-                <h4>{`Balance is: ${data.bal} INR`}</h4>
+                <h4>{`Balance is : ${props.balance} INR`}</h4>
 
                 {/* <ul>
                     {items.map(item => (

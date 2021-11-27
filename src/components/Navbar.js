@@ -1,6 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import Logo from './helpingHands.png'
 
 export default function Home() {
     var [log, setlog] = useState(false)
@@ -9,12 +9,12 @@ export default function Home() {
             <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
                 <div className="container-fluid col-md-3">
                     <a className="navbar-brand" href="#">
-                        <img src="https://www.fintechfutures.com/files/2016/04/EdgeVerve-Infosys.png" alt="" width="100" height="37" />
+                        <img src={Logo} alt="" width="100" height="37" />
                     </a>
                 </div>
                 <div className="container-fluid">
-                    
-                    <a className="navbar-brand" style={{paddingLeft:'180px'}} href="#">Edgeverve Banking Solution</a>
+
+                    <a className="navbar-brand" style={{ paddingLeft: '170px' }} href="#">Helping Hands Payment Bank</a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>
                     </button>
@@ -34,9 +34,15 @@ export default function Home() {
                     }}>Logout</button> */}
 
                     <button className="btn btn-danger float-right" onClick={() => {
-                        log = (window.confirm('Are you sure you want to logout ?')) ;
+                        log = (window.confirm('Are you sure you want to logout ?'));
                         setlog(log);
                         (log === true) && (window.location.href = '/login')
+
+                        window.history.pushState(null, "", window.location.href);
+                        window.onpopstate = function () {
+                            window.history.pushState(null, "", window.location.href);
+                        };
+
                     }}>Logout</button>
 
                     {/* <Link className="btn btn-danger float-right" onClick={()=>{

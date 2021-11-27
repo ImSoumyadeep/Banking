@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import Footer from './components/Footer';
 import Login from './components/Login';
-import Transfer from './components/Transfer';
+
 
 
 
@@ -22,7 +22,7 @@ function App() {
 
       <Routes>
         <Route exact path="/" element={<Login />} />
-        <Route exact path="/home" element={
+        <Route path="/home/:id" element={
           <>
             <Navbar />
             <Home />
@@ -31,6 +31,7 @@ function App() {
         } />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/logout" element={<Login />} />
+        <Route element={<h4>Error Page</h4>} />
       </Routes>
       </div>
   );

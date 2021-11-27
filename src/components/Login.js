@@ -1,32 +1,24 @@
 
-import React, { useState, Component } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
 
 
-// import Home from './Home.js'
+
 import './Login.css'
-
-// import {
-//     BrowserRouter as Router,
-//     Routes,
-//     Route,
-//     Link
-
-// } from "react-router-dom"
 
 export default function Login() {
 
     const [id, setid] = useState('')
     const [password, setpassword] = useState('')
-    const [token, settoken] = useState('0')
+    const [token, settoken] = useState('')
+  
 
 
     function userLogin() {
 
         let data = { id, password }
 
-        fetch('https://reqres.in/api/login', {                  // link to login
-            method: 'POST',
+        fetch(`http://localhost:8080/login/${id}/${password}`, {                  // link to login
+            method: 'POST',                         // Api is returning data 'true' or 'false'
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -34,18 +26,25 @@ export default function Login() {
             body: JSON.stringify(data)
         }).then((result) => {
             result.json().then((resp) => {
-                // console.log(resp)
+                
                 resp=JSON.stringify(resp)
+                // console.log(result)
+                
                 if(resp==='true') {
-                settoken('1')
-                window.location.href = "http://localhost:3000/home"
+                settoken('1');
+               
+                window.location.href = `http://localhost:3000/home/${id}`
+                
+                
                 }
-                else window.location.href = "https://www.google.com"
+                // else window.location.href = "https://www.google.com"
+                else alert("Account No or Password is incorrect !!!")
                 }
             )
         })
         
     }
+
 
 
 
@@ -68,14 +67,9 @@ export default function Login() {
                         userLogin
                     }>Login</Link> */}
 
-                    <button className="btn btn-warning"  style={{marginBottom:"25px",marginTop:"10px"}} onClick={
+                    <button id="loginButton" className="btn btn-warning" style={{marginBottom:"25px",marginTop:"10px"}} onClick={
                         userLogin 
                     }>Login</button>
-
-
-                    
-
-
 
 
                 </div>
